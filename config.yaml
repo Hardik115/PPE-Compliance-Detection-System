@@ -1,0 +1,54 @@
+# ============================================================
+# Mask / PPE Compliance Detector — Configuration
+# ============================================================
+
+# ── Detection ─────────────────────────────────────────────
+detection:
+  backend: "haar"           # "haar" | "mediapipe"
+  haar_scale_factor: 1.1
+  haar_min_neighbors: 5
+  haar_min_size: [60, 60]   # minimum face size in pixels [w, h]
+
+# ── Classification ────────────────────────────────────────
+classification:
+  model_path: "models/mask_classifier.h5"
+  input_size: [224, 224]
+  confidence_threshold: 0.70   # below this → uncertain, still logs
+  labels: ["Mask", "No Mask"]
+
+# ── Camera / Input ────────────────────────────────────────
+input:
+  source: 0                  # 0 = default webcam; or path to video/image file
+  fallback_video: "assets/sample_video.mp4"
+  frame_skip: 2              # process every Nth frame (reduces CPU load)
+  display_width: 900
+  camera_id: "cam0"
+
+# ── Logging ───────────────────────────────────────────────
+logging:
+  db_path: "logs/violations.db"
+  snapshot_dir: "logs/snapshots"
+  save_snapshots: true
+  log_compliant: false       # only log violations (No Mask) by default
+
+# ── Reporting ─────────────────────────────────────────────
+reporting:
+  output_dir: "reports"
+  include_charts: true
+  chart_dpi: 120
+
+# ── Training ──────────────────────────────────────────────
+training:
+  data_dir: "data"
+  model_save_path: "models/mask_classifier.h5"
+  image_size: [224, 224]
+  batch_size: 32
+  epochs_head: 10            # frozen-base training
+  epochs_finetune: 5         # unfreeze top-20 fine-tuning
+  learning_rate_head: 0.001
+  learning_rate_finetune: 0.0001
+  validation_split: 0.15
+  test_split: 0.10
+  augmentation: true
+  dataset_url: "https://github.com/chandrikadeb7/Face-Mask-Detection/archive/refs/heads/master.zip"
+  dataset_zip: "data/raw_dataset.zip"

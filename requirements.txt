@@ -1,0 +1,24 @@
+# Core Computer Vision
+opencv-python>=4.8.0
+mediapipe>=0.10.0
+
+# Deep Learning (CPU-only)
+tensorflow>=2.13.0,<2.16.0
+tensorflow-cpu>=2.13.0,<2.16.0; platform_system!="Darwin"
+
+# Data & Utilities
+numpy>=1.24.0
+Pillow>=10.0.0
+PyYAML>=6.0.1
+tqdm>=4.66.0
+
+# Reporting & Visualization
+matplotlib>=3.7.0
+Jinja2>=3.1.2
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Dataset download
+requests>=2.31.0
