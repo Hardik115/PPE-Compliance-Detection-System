@@ -180,3 +180,16 @@ The project is considered successful when:
    embedded charts within 5 seconds of the `r` keypress.
 5. The system runs end-to-end from `python -m src.main` with a single
    `pip install -r requirements.txt` setup step.
+
+---
+
+## 11. Machine Learning Methodology
+
+### 11.1 Dataset Description
+The model is trained on a public Face Mask Dataset consisting of over 4,000 images, equally distributed between `with_mask` and `without_mask` classes. The images capture a wide variety of demographics, lighting conditions, and mask types (surgical, cloth, N95) to ensure robust real-world generalization.
+
+### 11.2 Model Selection Rationale
+**MobileNetV2** was selected as the core convolutional neural network (CNN) architecture. The rationale is its lightweight profile and use of inverted residual blocks, which provide an optimal trade-off between accuracy and computational cost. This design choice is critical to meeting our NFR-1 (Performance), allowing the system to achieve ≤ 200 ms inference times on commodity CPU hardware without relying on GPU acceleration.
+
+### 11.3 Evaluation Methodology
+The model's performance is validated using a held-out test split (20% of the dataset). The primary evaluation metrics are categorical cross-entropy loss and classification accuracy. A two-phase transfer learning approach is employed—initially training only the classification head, followed by fine-tuning the top 20 layers of the MobileNetV2 base—to prevent overfitting. The formal success criterion is achieving ≥ 95% accuracy on the unseen test set.
