@@ -29,7 +29,7 @@ logging:
   db_path: "logs/violations.db"
   snapshot_dir: "logs/snapshots"
   save_snapshots: true
-  log_compliant: false       # only log violations (No Mask) by default
+  log_compliant: true        # now logs both Mask and No Mask
 
 # ── Reporting ─────────────────────────────────────────────
 reporting:
